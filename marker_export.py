@@ -16,7 +16,10 @@ def export(companies):
             recommended = 'true'
         else:
             recommended = 'false'
-        c = ET.SubElement(root, 'company', attrib={'recommended': recommended})
+        attrib = {'recommended': recommended,
+                  'added': f'{company.added}',
+                  'edited': f'{company.edited}'}
+        c = ET.SubElement(root, 'company', attrib=attrib)
         name = ET.SubElement(c, 'name')
         name.text = company.name
         city = ET.SubElement(c, 'city')
@@ -35,10 +38,6 @@ def export(companies):
         regon.text = company.regon
         krs = ET.SubElement(c, 'krs')
         krs.text = company.krs
-        added = ET.SubElement(c, 'added')
-        added.text = f"{company.added}"
-        edited = ET.SubElement(c, 'edited')
-        edited.text = f"{company.edited}"
         branches = ET.SubElement(c, 'branches')
         for branch in company.branches:
             b = ET.SubElement(branches, 'branch')
